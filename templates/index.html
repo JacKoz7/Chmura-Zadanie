@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikacja Pogodowa</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f8ff;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #0066cc;
+            text-align: center;
+        }
+        .form-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #004d99;
+        }
+        .weather-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .weather-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .weather-item {
+            text-align: center;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+        .weather-icon {
+            width: 64px;
+            height: 64px;
+        }
+        .temperature {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .description {
+            font-style: italic;
+            text-transform: capitalize;
+        }
+    </style>
+</head>
+<body>
+    <h1>Aplikacja Pogodowa</h1>
+    
+    <div class="form-container">
+        <form method="POST">
+            <div class="form-group">
+                <label for="country">Wybierz kraj:</label>
+                <select id="country" name="country" required onchange="updateCities()">
+                    <option value="">-- Wybierz kraj --</option>
+                    {% for country in countries %}
+                    <option value="{{ country }}" {% if selected_country == country %}selected{% endif %}>{{ country }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="city">Wybierz miasto:</label>
+                <select id="city" name="city" required>
+                    <option value="">-- Najpierw wybierz kraj --</option>
+                    {% for city in cities %}
+                    <option value="{{ city }}">{{ city }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <button type="submit">Sprawdź pogodę</button>
+        </form>
+    </div>
+    
+    {% if weather_data %}
+    <div class="weather-container">
+        <h2>Pogoda w mieście {{ weather_data.city }}</h2>
+        
+        <img class="weather-icon" src="http://openweathermap.org/img/wn/{{ weather_data.icon }}@2x.png" alt="Ikona pogody">
+        
+        <div class="temperature">{{ weather_data.temperature }}°C</div>
+        
+        <div class="description">{{ weather_data.description }}</div>
+        
+        <div class="weather-info">
+            <div class="weather-item">
+                <h3>Wilgotność</h3>
+                <p>{{ weather_data.humidity }}%</p>
+            </div>
+            
+            <div class="weather-item">
+                <h3>Ciśnienie</h3>
+                <p>{{ weather_data.pressure }} hPa</p>
+            </div>
+            
+            <div class="weather-item">
+                <h3>Wiatr</h3>
+                <p>{{ weather_data.wind_speed }} m/s</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <script>
+        function updateCities() {
+            const countrySelect = document.getElementById('country');
+            const citySelect = document.getElementById('city');
+            const selectedCountry = countrySelect.value;
+            
+            // Wyczyszczenie listy miast
+            citySelect.innerHTML = '';
+            
+            if (selectedCountry) {
+                // Dodanie domyślnej opcji
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = '-- Wybierz miasto --';
+                citySelect.appendChild(defaultOption);
+                
+                // Wysłanie zapytania AJAX o miasta dla wybranego kraju
+                fetch(`/api/cities?country=${selectedCountry}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.cities.forEach(city => {
+                            const option = document.createElement('option');
+                            option.value = city;
+                            option.textContent = city;
+                            citySelect.appendChild(option);
+                        });
+                    });
+            } else {
+                // Jeśli nie wybrano kraju, wyświetl domyślną opcję
+                const option = document.createElement('option');
+                option.value = '';
+                option.textContent = '-- Najpierw wybierz kraj --';
+                citySelect.appendChild(option);
+            }
+        }
+    </script>
+</body>
+</html>
