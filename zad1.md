@@ -9,12 +9,18 @@ Aplikacja webowa napisana w Pythonie z użyciem frameworka Flask, która pokazuj
 docker build -t aplikacja-pogodowa . 
 ```
 
+<img width="1117" alt="Screenshot 2025-05-06 at 09 24 20" src="https://github.com/user-attachments/assets/189a4989-2320-42a1-8c25-210fe8eeb3a4" />
+
+
 ### b. Uruchomienie kontenera na podstawie zbudowanego obrazu
 
 ```bash
 # Podstawowe uruchomienie kontenera
 docker run -d -p 5001:5000 --name pogoda --env-file .env aplikacja-pogodowa
 ```
+
+<img width="914" alt="Screenshot 2025-05-06 at 09 24 46" src="https://github.com/user-attachments/assets/6856bd47-c1a4-4c37-b7ee-dabea5fab2ae" />
+
 
 ### c. Uzyskanie informacji z logów aplikacji
 
@@ -23,16 +29,21 @@ docker run -d -p 5001:5000 --name pogoda --env-file .env aplikacja-pogodowa
 docker logs pogoda
 ```
 
+<img width="973" alt="Screenshot 2025-05-06 at 09 25 11" src="https://github.com/user-attachments/assets/47be2b15-2dc0-43fd-9438-e9cf5430e123" />
+
+
 ### d. Sprawdzenie liczby warstw
 
 ```bash
 # Sprawdzenie liczby warstw i szczegółów obrazu
 docker history aplikacja-pogodowa
 ```
+<img width="1064" alt="Screenshot 2025-05-06 at 09 25 42" src="https://github.com/user-attachments/assets/52c6f314-6056-46ef-8bb4-6ca11f05ff89" />
 
-## Screenshoty
+### Działanie aplikacji w przeglądarce
+
 <img width="1192" alt="Screenshot 2025-05-06 at 09 01 55" src="https://github.com/user-attachments/assets/3c5b984b-0b24-4fd5-8deb-7853cbd0aea5" />
 
-<img width="997" alt="Screenshot 2025-05-06 at 09 11 45" src="https://github.com/user-attachments/assets/32eab4bb-44ac-4dee-8c1b-63129e88e556" />
+
 
 
