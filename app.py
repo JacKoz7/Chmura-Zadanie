@@ -6,7 +6,6 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-# Konfiguracja logowania
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -17,7 +16,7 @@ logger = logging.getLogger(__name__)
 AUTHOR_NAME = "Jacek Kozłowski"  
 PORT = int(os.environ.get("PORT", 5000))
 
-# Klucz API do OpenWeatherMap - należy zastąpić własnym kluczem
+# Klucz API do OpenWeatherMap 
 WEATHER_API_KEY = os.environ.get("WEATHER_API_KEY")
 WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather"
 
