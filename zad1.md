@@ -42,7 +42,10 @@ docker history aplikacja-pogodowa
 
 ### Działanie aplikacji w przeglądarce
 
-<img width="1192" alt="Screenshot 2025-05-06 at 09 01 55" src="https://github.com/user-attachments/assets/3c5b984b-0b24-4fd5-8deb-7853cbd0aea5" />
+<img width="1190" alt="Screenshot 2025-05-06 at 09 57 49" src="https://github.com/user-attachments/assets/63d8f667-e791-4e18-8680-204411e96246" />
+
+
+
 
 
 
