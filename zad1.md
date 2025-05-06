@@ -29,3 +29,10 @@ docker logs pogoda
 # Sprawdzenie liczby warstw i szczegółów obrazu
 docker history aplikacja-pogodowa
 ```
+
+## Screenshoty
+<img width="1192" alt="Screenshot 2025-05-06 at 09 01 55" src="https://github.com/user-attachments/assets/3c5b984b-0b24-4fd5-8deb-7853cbd0aea5" />
+
+<img width="997" alt="Screenshot 2025-05-06 at 09 11 45" src="https://github.com/user-attachments/assets/32eab4bb-44ac-4dee-8c1b-63129e88e556" />
+
+
